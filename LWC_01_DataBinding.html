@@ -1,0 +1,68 @@
+<!-- HTML DataBinding.html  -->
+<template>
+    
+
+    <lightning-card  title="Data Binding Tek Yon">
+       <h1> Benim adim {isim}</h1> 
+    </lightning-card>
+
+    <br>
+
+    <lightning-card  title="Data Binding Cift Yon">
+
+        <lightning-input type="text" label="Lutfen isminizi girin"
+        onchange={handleInput} ></lightning-input>
+
+        <h1> Benim adim: {ad}</h1> 
+
+     </lightning-card>
+
+     <lightning-card  title="Data Binding Tam Isim">
+
+        <lightning-input type="text" label="Isminiz"
+        onblur={handleIsim} ></lightning-input>
+
+        <lightning-input type="text" label="Soyisminiz"
+        onchange={handleSoyIsim} ></lightning-input>
+
+        <h1> Benim adim: {fullName}</h1> 
+
+     </lightning-card>
+
+</template>
+
+<!-- JS DataBinding.js -->
+
+ import { LightningElement } from 'lwc';
+
+export default class A2DataBinding extends LightningElement {
+
+isim = "Talih Bey"
+
+ad= "Mahmut"
+
+handleInput(event){
+    this.ad= event.target.value
+}
+
+
+
+ilkIsim="Dene";
+soyIsim="Mesene";
+tamIsim="";
+
+
+handleIsim(event){
+    this.ilkIsim= event.target.value 
+}
+
+handleSoyIsim(event){
+    this.soyIsim= event.target.value 
+}
+
+get fullName(){
+   this.tamIsim = this.ilkIsim.toUpperCase + " " + this.soyIsim ;
+   return this.tamIsim ;
+}
+
+}
