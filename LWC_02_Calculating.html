@@ -1,0 +1,40 @@
+<!-- HTML Calculating.html  -->
+<template>
+
+    <lightning-card>
+
+    <h1>Toplama İşlemi</h1>
+
+    <lightning-input type="number" label="Birinci rakami giriniz" step="1" onblur={handleRakam1}></lightning-input>
+    <lightning-input type="number" label="Ikinci rakami giriniz" step="1" onblur={handleRakam2}></lightning-input>
+    
+   <h1>{rakam1} ile {rakam2} toplami {total}'dir</h1>
+
+     </lightning-card>
+
+</template>
+
+<!-- JS Calculating.js -->
+import { LightningElement } from 'lwc';
+
+export default class a2HesapMak extends LightningElement {
+  rakam1=0;
+  rakam2=0;
+
+
+  handleRakam1(event){
+    this.rakam1= event.target.value ;
+}
+
+handleRakam2(event){
+    this.rakam2= event.target.value ;
+}
+
+get total() {
+
+    var input= this.template.querySelectorAll("lightning-input");
+    return parseInt(this.rakam1) + parseInt(this.rakam1)
+
+
+  }
+}
