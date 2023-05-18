@@ -1,0 +1,89 @@
+<!-- HTML  -->
+<template>
+    <lightning-card title="for:each loop">
+        <p>Sehir listesi {sehirlistesi}</p>
+<br>
+<template for:each={sehirlistesi} for:item="sehir">
+
+    <p key ={sehir} >Turkiye'nin baskenti : **** {sehir} ****</p>
+
+</template>
+
+    </lightning-card>   
+    <br>
+    <lightning-card title="ITERATOR loop">
+        <template iterator:it={sehirlistesi} >
+            <p  key={it.value} if:true={it.first}  >   TURKIYENIN BASKETLERI        </p>
+                <h1 key={it.value} > Turkiyenin baskenti :*** {it.value} **** </h1>
+            <p  key={it.value} if:true={it.last}  >   BITTI       </p>
+        </template>
+     </lightning-card>
+
+     <lightning-card title="CICEK LISTESI">
+        <p>Cicek Listesi ::: {cicekListesi}</p>
+        
+        <br>
+        <template for:each={cicekListesi} for:item="sepet">
+        
+            <p key ={sepet.id} >Cicek adi: {sepet.name}</p>
+            <p key ={sepet.id} >Cicek Familyasi: {sepet.familya} </p>
+            <p key ={sepet.id} >  <img src={sepet.imgUrl} alt={sepet.name} height="200px" width="200px"/> </p>
+         
+        </template>
+
+     </lightning-card>
+<br>
+     <lightning-card title="CICEK LISTESI- LISTE YONTEMI">
+       
+       <ul>
+            <template for:each={cicekListesi} for:item="sepet">
+
+                <li key ={sepet.id}>
+                    <h1> Cicek adi: {sepet.name}</h1>
+                    <h1>Cicek Familyasi: {sepet.familya} </h1>
+                    <img src={sepet.imgUrl} alt={sepet.name} height="200px" width="200px"/>
+                    <br>
+                </li>
+
+            </template>
+
+       </ul>
+        
+     </lightning-card>
+</template>
+
+
+<!-- JS  -->
+import { LightningElement } from 'lwc';
+
+export default class A04ListIteration extends LightningElement {
+
+sehirlistesi=["Samsun", "Istanbul", "Kayseri", "Antep"]
+
+cicekListesi = [
+    {
+        id:1,
+        name:'Gul',
+        familya:'DikenliGuller',
+        imgUrl:'http://www.leblebitozu.com/wp-content/uploads/2017/02/gul.jpg'
+    }  ,
+    {
+        id:2,
+        name:'Lale',
+        familya:'Lalegiller',
+        imgUrl:'http://www.leblebitozu.com/wp-content/uploads/2017/02/lale.jpg'
+    },
+    {
+        id:3,
+        name:'Zambak',
+        familya:'Zambakgiller',
+        imgUrl:'http://www.leblebitozu.com/wp-content/uploads/2017/02/zambak.jpg'
+    },
+    {
+        id:4,
+        familya:'Soganligiller',
+        name:'Sumbul',
+        imgUrl:'http://www.leblebitozu.com/wp-content/uploads/2017/02/sumbul.jpg'
+    }
+    ]
+}
