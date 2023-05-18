@@ -1,0 +1,35 @@
+<!-- HTML  -->
+<template>
+    <lightning-card title="for:each loop">
+        <p>Sehir listesi {sehirlistesi}</p>
+<br>
+<template for:each={sehirlistesi} for:item="sehir">
+
+    <p key ={sehir} >Turkiye'nin baskenti : **** {sehir} ****</p>
+
+</template>
+
+    </lightning-card>   
+    <br>
+    <lightning-card title="ITERATOR loop">
+        <template iterator:it={sehirlistesi} >
+            <p  key={it.value} if:true={it.first}  >   TURKIYENIN BASKETLERI        </p>
+                <h1 key={it.value} > Turkiyenin baskenti :*** {it.value} **** </h1>
+            <p  key={it.value} if:true={it.last}  >   BITTI       </p>
+        </template>
+     </lightning-card>
+
+
+</template>
+
+
+
+<!-- JS  -->
+import { LightningElement } from 'lwc';
+
+export default class A04ListIteration extends LightningElement {
+
+sehirlistesi=["Samsun", "Istanbul", "Kayseri", "Antep"]
+
+
+}
