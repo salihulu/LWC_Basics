@@ -50,6 +50,17 @@
        </ul>
         
      </lightning-card>
+    
+    <br>
+     <lightning-card title="CICEK ITERATOR METHOD">
+        <template iterator:it={cicekListesi} >
+            <p  key={it.value} if:true={it.first}  >   CICEKLERIMIZ        </p>
+                <h1 key={it.value} > Cicek adi: {it.value.name}</h1>
+                <h1 key={it.value} > Cicek Familyasi: {it.value.familya}</h1>
+                <img key={it.value} src={it.value.imgUrl} alt={it.value.name} height="200px" width="200px">
+        </template>
+     </lightning-card>
+    
 </template>
 
 
