@@ -1,0 +1,107 @@
+<!-- HTML ARABA -->
+<template>
+    
+<lightning-card  title=" COMPOSITION " >
+ <h1> ARABA  </h1>
+ <lightning-input 
+ type="text" 
+ label="Araba Markasi" 
+ onchange={handleArabaMarkasi}  >   </lightning-input>
+<br>
+
+<lightning-input 
+ type="text" 
+ label="Motor Cinsi" 
+ onchange={handleMotorCinsi}  >   </lightning-input>
+
+ <br>
+ <lightning-input 
+ type="text" 
+ label="Yakit Turu" 
+ onchange={handleYakitTuru}  >   </lightning-input>
+
+ <h1>Araba Markasi ={arabaMarkasi}</h1>
+ <br>
+
+<c-a062-motor    
+ motor-cinsi = {babadanMotorCinsi}
+ babadan-yakit-turu = {dedenYakitTuru}
+></c-a062-motor>
+<br>
+
+</lightning-card>
+
+
+</template>
+
+<!-- JS ARABA -->
+import { LightningElement } from 'lwc';
+
+export default class A061Araba extends LightningElement {
+
+arabaMarkasi="TOYOTA"
+handleArabaMarkasi(e){
+
+this.arabaMarkasi = e.target.value
+
+}
+
+babadanMotorCinsi=""
+handleMotorCinsi(ev){
+
+ this.babadanMotorCinsi=   ev.target.value
+}
+
+
+dedenYakitTuru="SAMAN"
+handleYakitTuru(eve){
+
+   this.dedenYakitTuru = eve.target.value 
+}
+}
+
+<!-- HTML MOTOR -->
+<template>
+   
+<h1>  MOTOR  </h1>    
+
+<h1> Motor Cinsi = {motorCinsi} </h1>
+<br>
+<c-a063-motor-ozellikleri  
+ yakit-turu={babadanYakitTuru}
+ beygir-gucu = 200
+ silindir-hacmi = "2"
+></c-a063-motor-ozellikleri>
+
+</template>
+
+<!-- JS MOTOR -->
+import { LightningElement, api } from 'lwc';
+
+export default class A062Motor extends LightningElement {
+
+@api motorCinsi="TCI"
+@api babadanYakitTuru="Dizel"
+
+}
+
+<!-- HTML MOTOR OZELLIKLERI -->
+<template>
+ 
+ <h1> MOTOR OZELLIKLERI</h1>   
+<h1> Yakit Turu = {yakitTuru}</h1>
+<h1>Beygir Gucu = {beygirGucu} </h1>
+<H1>Silindir hacmi = {silindirHacmi}</H1>
+</template>
+<!-- JS MOTOR OZELLIKLERI -->
+import { LightningElement , api } from 'lwc';
+
+export default class A063MotorOzellikleri extends LightningElement {
+
+@api yakitTuru = "Benzin";
+@api
+beygirGucu = 110
+
+silindirHacmi=" 1.6"
+
+}
