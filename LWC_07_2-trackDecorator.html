@@ -1,0 +1,51 @@
+<!-- HTML  -->
+<template>
+    
+
+    <lightning-card title=" @track Decorator" >
+
+        <lightning-input 
+        type="text" 
+        label="Lutfen Isminizi Bahsedermisiniz" 
+        onchange={handleIsim}  >   </lightning-input>
+        <br>
+
+        <lightning-input 
+        type="text" 
+        label="Lutfen Yasinizi Bahsedermisiniz" 
+        onchange={handleYas}  >   </lightning-input>
+        <br>
+
+     <h1>ISIM : {aileBireyi.isim}</h1>   
+     <h1>YAS : {aileBireyi.yas}</h1>  
+    </lightning-card>
+
+
+</template>
+
+<!-- JS  -->
+import { LightningElement, track } from 'lwc';
+
+export default class A07trackDecorator extends LightningElement {
+
+
+
+@track
+aileBireyi={
+ isim:"Resul",
+ yas:49
+
+}
+
+
+handleIsim(event){
+   
+    this.aileBireyi.isim=  event.target.value  
+    }
+
+handleYas(event){
+
+    this.aileBireyi.yas=  event.target.value  
+    }
+
+}
