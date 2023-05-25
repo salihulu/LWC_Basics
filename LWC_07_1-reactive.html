@@ -1,0 +1,24 @@
+<!-- HTML  -->
+<template>
+    
+    <lightning-card  title="REACTIVE">
+        <lightning-input
+        type="text"
+        label="Lutfen Isminizi Bahsedermisiniz"
+        onchange={handleInput}  >   </lightning-input>
+        <h1> Benim adim ::  { ad  }  </h1>
+    </lightning-card>
+
+</template>
+<!-- JS  -->
+import { LightningElement } from 'lwc';
+
+export default class A07Reactive extends LightningElement {
+
+    ad = "Mahmut"
+    handleInput(event){
+    this.ad=  event.target.value
+    console.log('KOD REACTIVE EDILDI')
+    }
+
+}
