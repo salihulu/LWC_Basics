@@ -1,0 +1,79 @@
+<!-- HTML -->
+<template>
+
+    <lightning-card title="@track decorator LIST uzerinde">
+
+
+        <lightning-input 
+        type="text" 
+        label="Birey ismini giriniz" 
+        placeholder="ISIM"
+        onchange={handleIsim}  >   </lightning-input>
+        <br>
+ 
+        <lightning-input 
+        type="text" 
+        label="Yas giriniz" 
+        placeholder="YAS"
+        onchange={handleYas}  >   </lightning-input>
+        <br>
+
+        <lightning-button 
+        variant="brand" 
+        label="Birey Ekle" 
+        title="Primary action" 
+        onclick={handleClick} 
+        class="slds-m-left_x-small"></lightning-button>
+
+        <br>
+        <ul>
+            <template for:each={aileBireyleri} for:item="birey">
+                <li key={birey.id}>
+                    <h1  > Birey adi  : {birey.name} </h1>
+                    <h1  > Birey Yasi :{birey.yas}  </h1>
+                    <br>
+                    <p></p>
+                </li>
+            </template>
+       </ul>
+
+    </lightning-card>
+    
+</template>
+
+<!-- JS -->
+import { LightningElement, track } from 'lwc';
+
+export default class A07trackList extends LightningElement {
+
+    isim=''
+    handleIsim(event){
+      this.isim = event.target.value  
+    }
+
+    yas=0
+    handleYas(e){
+        this.yas = e.target.value   
+      }
+
+      @track
+    aileBireyleri = [
+        {
+            id:1,
+            name:'Resul',
+            yas:49,
+        } 
+        ]
+    
+    sayi=2
+    handleClick(e){
+        const birey = {
+            id:this.sayi,
+            name: this.isim,
+            yas: this.yas
+        } 
+
+        this.aileBireyleri.push(birey);
+        this.sayi++
+    }
+}
