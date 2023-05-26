@@ -1,0 +1,75 @@
+<!-- APEX CLS -->
+public with sharing class AccountWireController {
+    
+    @AuraEnabled(cacheable=true)
+    public static List<account> tumAccountlarGetir1(){
+       // 1.Method
+       List<account> accList = [SELECT id, name FROM account];
+        return accList;
+    }
+    
+    @AuraEnabled(cacheable=true)
+    public static List<account> tumAccountlarGetir2(){
+       // 2.Method
+       return [SELECT id, name FROM account];
+       
+    }
+    
+    @AuraEnabled(cacheable=true)
+    public static List<account> tumAccountlarGetir3(String accIsim){
+       // 3.Method
+       
+       string sorgu = 'SELECT id,name FROM account WHERE name LIKE \'%'+ accIsim +'%\' ';
+
+       return database.query(sorgu);
+    }
+
+}
+
+<!-- HTML -->
+import { LightningElement , wire } from 'lwc';
+import tumAccountlarGetir2  from '@salesforce/apex/AccountWireController.tumAccountlarGetir2'
+import tumAccountlarGetir3  from '@salesforce/apex/AccountWireController.tumAccountlarGetir3'
+
+
+export default class A08wireDecorator extends LightningElement {
+
+filtre='xxxxxxxxx';
+
+  //  @wire(tumAccountlarGetir2)    wiredAccounts
+
+  @wire(tumAccountlarGetir3, {accIsim:'$filtre'})
+  wiredAccounts
+
+    handleAccount(e){
+   this.filtre = e.target.value
+
+    }
+
+
+
+}
+
+<!-- JS -->
+import { LightningElement , wire } from 'lwc';
+import tumAccountlarGetir2  from '@salesforce/apex/AccountWireController.tumAccountlarGetir2'
+import tumAccountlarGetir3  from '@salesforce/apex/AccountWireController.tumAccountlarGetir3'
+
+
+export default class A08wireDecorator extends LightningElement {
+
+filtre='xxxxxxxxx';
+
+  //  @wire(tumAccountlarGetir2)    wiredAccounts
+
+  @wire(tumAccountlarGetir3, {accIsim:'$filtre'})
+  wiredAccounts
+
+    handleAccount(e){
+   this.filtre = e.target.value
+
+    }
+
+
+
+}
