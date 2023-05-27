@@ -27,28 +27,33 @@ public with sharing class AccountWireController {
 }
 
 <!-- HTML -->
-import { LightningElement , wire } from 'lwc';
-import tumAccountlarGetir2  from '@salesforce/apex/AccountWireController.tumAccountlarGetir2'
-import tumAccountlarGetir3  from '@salesforce/apex/AccountWireController.tumAccountlarGetir3'
-
-
-export default class A08wireDecorator extends LightningElement {
-
-filtre='xxxxxxxxx';
-
-  //  @wire(tumAccountlarGetir2)    wiredAccounts
-
-  @wire(tumAccountlarGetir3, {accIsim:'$filtre'})
-  wiredAccounts
-
-    handleAccount(e){
-   this.filtre = e.target.value
-
-    }
+<template>
+   <lightning-card title=" @wire decorator ile SF data cekmek" >
+ 
+    <lightning-input 
+    label="Account adini giriniz"
+    placeholder="Account ADINI BURAYA YAZIN"
+    onchange={handleAccount}></lightning-input>
+   <br>
 
 
 
-}
+    <ul>
+        <template for:each={wiredAccounts.data} for:item="acc">
+            <li key={acc.Id}>  
+
+                <h1  > Account Id   : {acc.Id} </h1>
+                <h1  > Account Name  : {acc.Name}  </h1>
+               <br>
+                
+            </li>
+             
+        </template>   
+   </ul>
+
+
+   </lightning-card>
+</template>
 
 <!-- JS -->
 import { LightningElement , wire } from 'lwc';
