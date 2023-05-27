@@ -1,0 +1,146 @@
+<!-- APEX CLS -->
+public with sharing class AccountWireController {
+    
+    @AuraEnabled(cacheable=true)
+    public static List<account> tumAccountlarGetir1(){
+       // 1.Method
+       List<account> accList = [SELECT id, name FROM account];
+        return accList;
+    }
+    
+    @AuraEnabled(cacheable=true)
+    public static List<account> tumAccountlarGetir2(){
+       // 2.Method
+       return [SELECT id, name FROM account];
+       
+    }
+    
+    @AuraEnabled(cacheable=true)
+    public static List<account> tumAccountlarGetir3(String accIsim){
+       // 3.Method
+       
+       string sorgu = 'SELECT id,name FROM account WHERE name LIKE \'%'+ accIsim +'%\' ';
+
+       return database.query(sorgu);
+    }
+
+}
+
+<!-- HTML -->
+<template>
+   <lightning-card title=" @wire decorator ile SF data cekmek" >
+ 
+    <lightning-input 
+    label="Account adini giriniz"
+    placeholder="Account ADINI BURAYA YAZIN"
+    onchange={handleAccount}></lightning-input>
+   <br>
+
+
+
+    <ul>
+        <template for:each={accountDoluList} for:item="acc">
+            <li key={acc.Id}>  
+
+                <h1  > Account Id   : {acc.Id} </h1>
+                <h1  > Account Name  : {acc.Name}  </h1>
+               <br>
+                
+            </li>
+             
+        </template>   
+   </ul>
+
+
+   </lightning-card>
+
+<br>
+<h1>***************************************</h1>
+<br>
+
+<lightning-card title=" IMPERATIVE ile SF data cekmek" >
+ 
+    <lightning-input 
+    label="Account adini giriniz"
+    placeholder="Account ADINI BURAYA YAZIN"
+    onchange={handleAccountImperative}></lightning-input>
+   <br>
+
+   <lightning-button 
+   variant="success" 
+   label="Account Getir" 
+   title="Successful action" 
+   onclick={handleClick} 
+   class="slds-m-left_x-small"></lightning-button>
+
+    <ul>
+        <template for:each={imperativeAccountListe} for:item="acc">
+            <li key={acc.Id}>  
+
+                <h1  > Account Id   : {acc.Id} </h1>
+                <h1  > Account Name  : {acc.Name}  </h1>
+               <br>
+                
+            </li>
+             
+        </template>   
+   </ul>
+
+
+   </lightning-card>
+
+</template>
+
+<!-- JS -->
+import { LightningElement , wire } from 'lwc';
+import tumAccountlarGetir2  from '@salesforce/apex/AccountWireController.tumAccountlarGetir2';
+import tumAccountlarGetir3  from '@salesforce/apex/AccountWireController.tumAccountlarGetir3';
+import tumAccountlarGetirImperative  from '@salesforce/apex/AccountWireController.tumAccountlarGetirImperative'
+
+export default class A08wireDecorator extends LightningElement {
+
+filtre='xxxxxxxxx';
+handleAccount(e){
+    this.filtre = e.target.value
+ 
+     }
+
+ //@wire(tumAccountlarGetir2)    wiredAccounts
+
+ accountDoluList
+ hata
+
+ @wire(tumAccountlarGetir3, {accIsim:'$filtre'}) 
+  wiredAccounts ({data, error}){
+    if(data){
+        this.accountDoluList = data;
+        this.hata = undefined;
+    }
+    else if (error) {
+        this.hata = error;
+        this.accountDoluList = undefined;
+    }
+}
+
+
+filtreImperative='xxxxxxxxx';
+handleAccountImperative(e){
+    this.filtreImperative = e.target.value
+ 
+     }
+
+
+imperativeAccountListe
+yanlis
+handleClick(){
+    tumAccountlarGetirImperative({accIsim:this.filtreImperative})
+    .then ( (result) => { this.imperativeAccountListe = result;
+                          this.yanlis                 = undefined     } )
+    .catch(  (error) => { this.imperativeAccountListe = undefined ;
+                           this.yanlis                 = error     }    )
+
+}  
+
+
+
+}
